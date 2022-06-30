@@ -9,17 +9,17 @@ export const BITMAP_DIMENSION = 224;
 export const cropPicture = async (imageData, maskDimension) => {
   try {
     const {uri, width, height} = imageData;
-    const cropWidth = maskDimension * (width / DEVICE_WIDTH);
-    const cropHeight = maskDimension * (height / DEVICE_HEIGHT);
+    const cropWidth = 224;
+    const cropHeight = 224;
     const actions = [
-      {
-        crop: {
-          originX: width / 2 - cropWidth / 2,
-          originY: height / 2 - cropHeight / 2,
-          width: cropWidth,
-          height: cropHeight,
-        },
-      },
+      // {
+      //   crop: {
+      //     originX: width / 2 - cropWidth / 2,
+      //     originY: height / 2 - cropHeight / 2,
+      //     width: cropWidth,
+      //     height: cropHeight,
+      //   },
+      // },
       {
         resize: {
           width: BITMAP_DIMENSION,
@@ -32,6 +32,7 @@ export const cropPicture = async (imageData, maskDimension) => {
       format: ImageManipulator.SaveFormat.JPEG,
       base64: true,
     };
+  // return await   ImageManipulator.manipulateAsync(uri);
     return await ImageManipulator.manipulateAsync(uri, actions, saveOptions);
   } catch (error) {
     console.log('Could not crop & resize photo', error);
